@@ -1,0 +1,60 @@
+logging:
+  level:
+    ROOT: ERROR
+    org.springframework: ERROR
+    com.erith: DEBUG
+    com.erith.example: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file: log/application.log
+
+app:
+  menus:
+    - title: Home
+      name: Home
+      path: /
+    - title: Login
+      name: Login
+      path: /login
+  compiler:
+    timeout: 5
+    output-folder: /temp/
+  error: /error/
+
+spring:
+  profiles:
+    active: "dev"
+  main:
+    banner-mode: "off"
+
+server:
+  email: default@mkyong.com
+
+---
+
+spring:
+  profiles: dev
+server:
+  email: dev@mkyong.com
+  cluster:
+    - ip: 127.0.0.1
+      path: /dev1
+    - ip: 127.0.0.2
+      path: /dev2
+    - ip: 127.0.0.3
+      path: /dev3
+
+---
+
+spring:
+  profiles: prod
+server:
+  email: prod@mkyong.com
+  cluster:
+    - ip: 192.168.0.1
+      path: /app1
+    - ip: 192.168.0.2
+      path: /app2
+    - ip: 192.168.0.3
+      path: /app3
